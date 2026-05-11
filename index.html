@@ -1,0 +1,125 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Online Magnet Link Generator</title>
+<style>
+    :root {
+        --bg-color: #ffffff;
+        --text-color: #333333;
+        --button-bg: #007bff;
+        --button-text: #ffffff;
+    }
+
+    [data-theme="dark"] {
+        --bg-color: #1a1a1a;
+        --text-color: #e0e0e0;
+        --button-bg: #ff6b6b;
+        --button-text: #ffffff;
+    }
+
+    body {
+        font-size: 1.2rem;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: Arial, sans-serif;
+        transition: background-color 0.3s, color 0.3s;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .theme-toggle {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--button-bg);
+        color: var(--button-text);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-bottom: 20px;
+    }
+
+    .theme-toggle:hover {
+        opacity: 0.9;
+    }
+
+    input, label, a {
+        color: var(--text-color);
+    }
+
+    input[type="submit"] {
+        background-color: var(--button-bg);
+        color: var(--button-text);
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        opacity: 0.9;
+    }
+</style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle">Переключить тему</button>
+
+    <p>
+        <script type="text/javascript">
+            function update() {
+                try {
+                    var data = "magnet:"
+                        + "?xt=urn:btih:" + document.getElementById("hash").value
+                        + "&tr=udp%3A%2F%2Fopentor.net%3A6969"
+                        + "&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce"
+                        + "&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce"
+                        + "&tr=http%3A%2F%2Fretracker.local%2Fannounce"
+                        + "&tr=http%3A%2F%2Ftracker.grepler.com%3A6969%2Fannounce"
+                        + "&tr=udp%3A%2F%2Ftracker.dler.com%3A6969%2Fannounce"
+                        + "&tr=http%3A%2F%2Fh4.trakx.nibba.trade%3A80%2Fannounce"
+                        + "&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce"
+                        + "&tr=udp%3A%2F%2Ftracker.bitsearch.to%3A1337%2Fannounce"
+                        + "&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce"
+                        + "&tr=http%3A%2F%2Fbt.t-ru.org%2Fann"
+                        + "&tr=http%3A%2F%2Fbt2.t-ru.org%2Fann"
+                        + "&tr=http%3A%2F%2Fbt3.t-ru.org%2Fann"
+                        + "&tr=http%3A%2F%2Fbt4.t-ru.org%2Fann";
+                    document.getElementById("link").href = data;
+            document.getElementById("link_text").value = data;
+        } catch (e) {
+            alert("exception: " + e);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+
+        document.documentElement.setAttribute('data-theme', currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    });
+</script>
+<div>
+    <form name="form" onsubmit="update(); return false;">
+        <label>ХЕШ: <input id="hash" size=50 style="font-size: 1.2rem;"></label>
+        (ВСТАВЛЯЕМ ХЕШ В ЭТУ ГРАФУ)
+        <br>
+        <br>
+        <input type="submit" value="Получить magnet-ссылку" style="font-size: 1.2rem;">
+        <br>
+        <br>
+        <a href="magnet:" id="link">Magnet-ссылка</a>: <input readonly id="link_text" size=50 style="font-size: 1.2rem;">
+        <br>
+        <br>
+    </form>
+</div>
+</p>
+</body>
+</html>
